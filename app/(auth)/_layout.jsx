@@ -7,5 +7,5 @@ export default function AuthLayou() {
             <StatusBar style="auto" />
             <Stack screenOptions={{ headerShown: false, animation: "none" }} />
         </>
-    )
+    )   
 }
