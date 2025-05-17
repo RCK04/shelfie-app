@@ -4,6 +4,7 @@ import ThemedText from "../../components/ThemedText";
 import ThemedView from "../../components/ThemedView";
 
 const Profile = () => {
+
   return (
     <ThemedView style={styles.container}>
       <ThemedText title={true} style={styles.heading}>
