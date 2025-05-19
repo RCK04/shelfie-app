@@ -15,7 +15,7 @@ const UserOnly = ({ children }) => {
 
     if (!authChecked || !user) {
         return (
-            <Text>Loading...</Text>
+            <ThemedLoader />
         )
     }
 
