@@ -34,21 +34,29 @@ export function UserProvider({ children }) {
 
   async function getInitialUserValue() {
     try {
-        const response = await account.get();
-        setUser(response);
+      const response = await account.get();
+      setUser(response);
     } catch (error) {
-        setUser(null);
+      setUser(null);
     } finally {
-        setAuthChecked(true);
+      setAuthChecked(true);
     }
   }
 
   useEffect(() => {
     getInitialUserValue();
-  }, [])
+  }, []);
 
   return (
-    <UserContext.Provider value={{ user, login, register, logout, authChecked }}>
+    <UserContext.Provider
+      value={{
+        user,
+        login,
+        register,
+        logout,
+        authChecked,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
