@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { useUser } from "../../hooks/useUser";
 import { useEffect } from "react";
+import ThemedLoader from "../ThemedLoader";
 import { Text } from "react-native";
 
 const UserOnly = ({ children }) => {
