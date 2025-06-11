@@ -62,6 +62,13 @@ export function BookProvider({ children }) {
 
   async function deleteBook(id) {
     try {
+      const response = await databases.deleteDocument(
+        DATABASE_ID,
+        COLLECTION_ID,
+        id
+      )
+
+      return response;
     } catch (error) {
       console.log(error.message);
     }
@@ -79,6 +86,10 @@ export function BookProvider({ children }) {
 
         if (events[0].includes('create')) {
           setBooks((prevBooks) => [...prevBooks, payload]);
+        }
+
+        if (events[0].includes('delete')) {
+          setBooks((prevBooks) => prevBooks.filter((book) => book.$id !== payload.$id));
         }
       })
     } else {
