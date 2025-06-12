@@ -74,6 +74,22 @@ export function BookProvider({ children }) {
     }
   }
 
+  async function updateBook(id, data) {
+    try {
+      const response = await databases.updateDocument(
+        DATABASE_ID,
+        COLLECTION_ID,
+        id,
+        data
+      )
+
+      return response;
+      
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   useEffect(() => {
     let unsubscribe;
     const channel = `databases.${DATABASE_ID}.collections.${COLLECTION_ID}.documents`;
@@ -90,6 +106,10 @@ export function BookProvider({ children }) {
 
         if (events[0].includes('delete')) {
           setBooks((prevBooks) => prevBooks.filter((book) => book.$id !== payload.$id));
+        }
+
+        if (events[0].includes('update')) {
+          setBooks((prevBooks) => prevBooks.map((book) => book.$id === payload.$id ? payload : book));
         }
       })
     } else {
@@ -109,6 +129,7 @@ export function BookProvider({ children }) {
         fetchBookById,
         createBook,
         deleteBook,
+        updateBook,
       }}
     >
         { children }

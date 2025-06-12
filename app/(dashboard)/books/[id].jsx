@@ -6,6 +6,7 @@ import { useBooks } from "../../../hooks/useBooks";
 import Spacer from "../../../components/Spacer";
 import ThemedView from "../../../components/ThemedView";
 import ThemedText from "../../../components/ThemedText";
+import ThemedTextInput from "../../../components/ThemedTextInput";
 import ThemedCard from "../../../components/ThemedCard";
 import ThemedLoader from "../../../components/ThemedLoader";
 import ThemedButton from "../../../components/ThemedButton"
@@ -17,7 +18,7 @@ const BookDetails = () => {
     const router = useRouter();
 
     const { id } = useLocalSearchParams();
-    const { fetchBookById, deleteBook} = useBooks();
+    const { fetchBookById, deleteBook, updateBook } = useBooks();
 
     const handleDelete = async () => {
         await deleteBook(id);
@@ -54,11 +55,19 @@ const BookDetails = () => {
 
                 <ThemedText>{book.description}</ThemedText>
 
-                <ThemedButton style={styles.delete} onPress={handleDelete}>
-                    <Text style={{ color: '#FFF', textAlign: 'center'}}>
-                        Delete Book
-                    </Text>
-                </ThemedButton>
+                <ThemedCard style={styles.buttonsContainer}>
+                    <ThemedButton style={styles.delete} onPress={handleDelete}>
+                        <Text style={{ color: '#FFF', textAlign: 'center'}}>
+                            Delete Book
+                        </Text>
+                    </ThemedButton>
+
+                    <ThemedButton style={styles.update} onPress={() => router.push(`/books/${id}/update`)}>
+                        <Text style={{ color: '#FFF', textAlign: 'center'}}>
+                            Update Book
+                        </Text>
+                    </ThemedButton>
+                </ThemedCard>
             </ThemedCard>
         </ThemedView>
     )
@@ -78,9 +87,19 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     delete: {
-        marginTop: 40,
         backgroundColor: Colors.warning,
-        width: 200,
-        alignSelf: 'center'
+        width: 150,
+    },
+    update: {
+        backgroundColor: Colors.primary,
+        width: 150,
+    },
+    buttonsContainer: {
+        alignSelf: 'center',
+        marginTop: 40,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        gap: 20,
     }
 })
